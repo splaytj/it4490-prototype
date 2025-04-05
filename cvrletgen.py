@@ -1,16 +1,15 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torch
 
-# Load the pre-trained GPT-2 model and tokenizer
-model_name = "gpt2"  # You can use "gpt2-medium" for better results if your machine can handle it
+# Loads the pre-trained GPT-2 model and tokenizer
+model_name = "gpt2"
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 model = GPT2LMHeadModel.from_pretrained(model_name)
 
-# Set the model to evaluation mode
+# Sets the model to evaluation mode
 model.eval()
 
 def generate_cover_letter(job_title, company_name, user_name, skills):
-    # Create a prompt based on user input
     prompt = (
         f"Dear Hiring Manager,\n\n"
         f"I am writing to express my interest in the {job_title} position at {company_name}. "
@@ -54,7 +53,7 @@ def generate_cover_letter(job_title, company_name, user_name, skills):
     return generated_text
 
 def main():
-    # Get user input
+    # User input
     print("Welcome to the AI Cover Letter Generator!")
     job_title = input("Enter the job title: ")
     company_name = input("Enter the company name: ")
