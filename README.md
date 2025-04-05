@@ -9,4 +9,5 @@ The interface offers three core features:
 The main logic is implemented in career-app.py, which has an implemented interface (Gradio) that gives users a friendly UI to navigate to the specific features via a tab bar.
 
 career-app.py - central file that hosts Gradio along with the Job Advisor AI
+
 pdfhandler.py - secondary file that handles pdf processing.
