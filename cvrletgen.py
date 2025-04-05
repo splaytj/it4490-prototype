@@ -1,36 +1,72 @@
-from transformers import pipeline
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import torch
 
-# Inform the user that the model is being loaded
-print("Loading the model, please wait...")
+# Load the pre-trained GPT-2 model and tokenizer
+model_name = "gpt2"  # You can use "gpt2-medium" for better results if your machine can handle it
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
 
-# Load the text generation pipeline with DialoGPT
-generator = pipeline('text-generation', model='microsoft/DialoGPT-small')
+# Set the model to evaluation mode
+model.eval()
 
-# Confirm that the model has been loaded
-print("Model loaded successfully.")
+def generate_cover_letter(job_title, company_name, user_name, skills):
+    # Create a prompt based on user input
+    prompt = (
+        f"Dear Hiring Manager,\n\n"
+        f"I am writing to express my interest in the {job_title} position at {company_name}. "
+        f"My name is {user_name}, and I am excited about the opportunity to contribute to your team. "
+        f"I bring the following skills to the role: {skills}. Below is a professional cover letter tailored to this position:\n\n"
+    )
 
-# Get the job title from the user
-job_title = input("Enter the job title: ")
+    # Encode the prompt
+    inputs = tokenizer.encode(prompt, return_tensors="pt")
 
-# Inform the user that the cover letter is being generated
-print(f"Generating cover letter for {job_title}...")
+    # Generate text using GPT-2
+    outputs = model.generate(
+        inputs,
+        max_length=300,  # Adjust length as needed (cover letters are typically ~250-400 words)
+        num_return_sequences=1,
+        no_repeat_ngram_size=2,  # Avoid repetition
+        do_sample=True,  # Enable sampling for more creative output
+        top_k=50,  # Limit to top 50 probable tokens
+        top_p=0.95,  # Use nucleus sampling
+        temperature=0.7,  # Control randomness (lower = more coherent)
+        pad_token_id=tokenizer.eos_token_id  # Handle padding
+    )
 
-# Create the prompt for the cover letter
-prompt = f"I am writing to apply for the position of {job_title}."
+    # Decode the generated text
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-# Generate the cover letter using the model
-output = generator(
-    prompt,
-    max_length=200,
-    temperature=0.7,
-    top_k=50,
-    top_p=0.95,
-    repetition_penalty=1.2
-)
+    # Post-process to ensure it ends cleanly
+    if not generated_text.endswith("."):
+        last_period = generated_text.rfind(".")
+        if last_period != -1:
+            generated_text = generated_text[:last_period + 1]
 
-# Extract the generated text
-cover_letter = output[0]['generated_text']
+    # Add a closing if not present
+    if "Sincerely," not in generated_text:
+        generated_text += (
+            "\n\nThank you for considering my application. I look forward to the opportunity to discuss "
+            "how my skills and experience align with the needs of {company_name}. "
+            "Sincerely,\n{user_name}"
+        ).format(company_name=company_name, user_name=user_name)
 
-# Print the generated cover letter
-print("\nGenerated Cover Letter:\n")
-print(cover_letter)
+    return generated_text
+
+def main():
+    # Get user input
+    print("Welcome to the AI Cover Letter Generator!")
+    job_title = input("Enter the job title: ")
+    company_name = input("Enter the company name: ")
+    user_name = input("Enter your full name: ")
+    skills = input("Enter your key skills (e.g., Python, project management, communication): ")
+
+    # Generate the cover letter
+    cover_letter = generate_cover_letter(job_title, company_name, user_name, skills)
+
+    # Print the result
+    print("\nHere’s your generated cover letter:\n")
+    print(cover_letter)
+
+if __name__ == "__main__":
+    main()
