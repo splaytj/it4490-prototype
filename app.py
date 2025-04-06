@@ -8,7 +8,7 @@ def create_cover_letter(job_title, company_name, user_name, skills):
 
 # Gradio interface ------------------------------------------------------------------------------------------------------------
 with gr.Blocks() as app:
-    gr.Markdown("# AI Job Advisor and Resume Grammar Checker")
+    gr.Markdown("# CareerMate")
 
     # Resume Grammar Checker tab
     with gr.Tab("Resume Grammar Checker"):
