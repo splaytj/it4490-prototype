@@ -16,4 +16,5 @@ jobadvisor.py - seocndary file that handles the chatbot using the GPT-2 model.
 
 
 Also available on Hugging Face Spaces: https://huggingface.co/spaces/splaytj/IT-4490-Prototype
+
 **DISCLAIMER**: Please allow up to 10 minutes for the application to fully load if not yet built. Additionally, we've attached a sample resume to upload to the Grammar Checker.
