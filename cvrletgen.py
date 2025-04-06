@@ -64,7 +64,7 @@ def main():
     cover_letter = generate_cover_letter(job_title, company_name, user_name, skills)
 
     # Print the result
-    print("\nHere’s your generated cover letter:\n")
+    print("\nHere is your generated cover letter:\n")
     print(cover_letter)
 
 if __name__ == "__main__":
