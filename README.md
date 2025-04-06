@@ -1,4 +1,4 @@
-# it4490-prototype
+# it4490-prototype (CareerMate)
 An AI-powered Career Assistant prototype called 'CareerMate'.
 
 The interface offers three core features:
