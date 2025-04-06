@@ -5,3 +5,4 @@ transformers
 pdfplumber
 difflib
 re
+accelerate
