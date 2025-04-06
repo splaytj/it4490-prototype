@@ -6,8 +6,14 @@ The interface offers three core features:
 - **Resume Grammar Checker:** Users upload a PDF file of a resume and the AI will output grammar corrections or wording improvements.
 - **Cover Letter Generator:** Users input information for the job they are applying for, and the AI will generate a tailored cover letter.
 
-career-app.py - central file that hosts Gradio along with the Job Advisor AI
+app.py - central file that hosts Gradio and connects all other files.
 
-pdfhandler.py - secondary file that handles pdf processing.
+pdfhandler.py - secondary file that handles pdf processing using the Prithivi Da GEC model.
 
-cvrletgen.py - secondary file that handles cover letter generation
+cvrletgen.py - secondary file that handles cover letter generation using the GPT-2 model.
+
+jobadvisor.py - seocndary file that handles the chatbot using the GPT-2 model.
+
+
+Also available on Hugging Face Spaces: https://huggingface.co/spaces/splaytj/IT-4490-Prototype
+**DISCLAIMER**: Please allow up to 10 minutes for the application to fully load if not yet built. Additionally, we've attached a sample resume to upload to the Grammar Checker.
