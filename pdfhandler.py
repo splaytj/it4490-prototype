@@ -78,4 +78,3 @@ def process_resume(pdf_file):
     # Prepend the custom style to the HTML output
     diff_html = custom_style + diff_html
     return diff_html
- 
