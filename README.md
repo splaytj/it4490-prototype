@@ -1,5 +1,5 @@
 # it4490-prototype
-An AI-powered Career Assistant prototype.
+An AI-powered Career Assistant prototype called 'CareerMate'.
 
 The interface offers three core features:
 - **Job Advisor:** A chatbot that suggests potential jobs based on a user's skills and interests.
